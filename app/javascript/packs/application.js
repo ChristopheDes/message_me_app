@@ -18,8 +18,29 @@ require("semantic-ui-sass")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+// Scroll chat pane
+scroll_bottom = function() {
+  if ($('#messages').length > 0) {
+    $('#messages').scrollTop($('#messages')[0].scrollHeight);
+  }
+}
+
+// submit message when enter is pressed
+submit_message = function() {
+  $('#message_body').on('keydown', function(e) {
+    if (e.keyCode == 13) {
+      $('button').click();
+    };
+  });
+};
+
 // jQuery for dropdown in header
 $(document).on('turbolinks:load', function(){
     $('.ui.dropdown').dropdown();
-});
+    $('.message .close').on('click', function() {
+    $(this).closest('.message').transition('fade');
+  });
+  submit_message();
+  scroll_bottom();
+})
 
